@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,8 @@ namespace WeatherApp
         {
             InitializeComponent();
 
-            GetDatas();
+            //GetDatas();
+            GetCities();
         }
 
         private void GetDatas()
@@ -59,11 +61,43 @@ namespace WeatherApp
 
         private void GetCities()
         {
-            var myweather = new WeatherWebReference.ndfdXML();
+            using (StreamReader sr = new StreamReader("cities.csv", Encoding.Default))
+            {
+                while (!sr.EndOfStream)
+                {
+                    string[] sor = sr.ReadLine().Split(';');
+                    City c = new City();
+
+                    c.varos = sor[0];
+                    try
+                    {
+                        c.lat = decimal.Parse(sor[1]);
+                        c.lng = decimal.Parse(sor[2]);
+                    }
+                    catch { }
+
+                    cities.Add(c);
+                }
+
+                listBox1.DataSource = cities.ToList();
+                listBox1.DisplayMember = "varos";
+            }
+
+            /*var myweather = new WeatherWebReference.ndfdXML();
 
             var city = myweather.LatLonListCityNames("1234");
 
+            //richTextBox1.Text = city;
 
+            var xml = new XmlDocument();
+            xml.LoadXml(city);
+
+            foreach (XmlElement element in xml.GetElementsByTagName("cityNameList"))
+            {
+                cities.Add(element.InnerText);
+            }
+
+            listBox1.DataSource = cities;*/
         }
     }
 }
