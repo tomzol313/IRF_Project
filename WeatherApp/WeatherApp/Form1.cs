@@ -23,6 +23,9 @@ namespace WeatherApp
 
             //GetDatas();
             GetCities();
+            FillCitiesSource();
+            listBox1.DisplayMember = "varos";
+
         }
 
         private void GetDatas()
@@ -80,7 +83,6 @@ namespace WeatherApp
                 }
 
                 listBox1.DataSource = cities.ToList();
-                listBox1.DisplayMember = "varos";
             }
 
             /*var myweather = new WeatherWebReference.ndfdXML();
@@ -98,6 +100,18 @@ namespace WeatherApp
             }
 
             listBox1.DataSource = cities;*/
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            FillCitiesSource();
+        }
+
+        private void FillCitiesSource()
+        {
+            listBox1.DataSource = (from c in cities
+                                   where c.varos.Contains(textBox1.Text)
+                                   select c).ToList();
         }
     }
 }
