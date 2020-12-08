@@ -24,7 +24,7 @@ namespace WeatherApp
 
         private void GetDatas()
         {
-            var myweather = new WeatherServiceReference.ndfdXMLPortTypeClient();
+            var myweather = new WeatherWebReference.ndfdXML();
 
             DateTime startDate = DateTime.Now;
             DateTime endDate = DateTime.Now;
@@ -32,10 +32,10 @@ namespace WeatherApp
             decimal lat = 32.7452M;
             decimal lng = -117.1979M;
 
-            var productT = WeatherServiceReference.productType.timeseries;
-            var unit = WeatherServiceReference.unitType.m;
+            var productT = WeatherWebReference.productType.timeseries;
+            var unit = WeatherWebReference.unitType.m;
 
-            var parameters = new WeatherServiceReference.weatherParametersType();
+            var parameters = new WeatherWebReference.weatherParametersType();
             {
                 parameters.temp = true;
             };
