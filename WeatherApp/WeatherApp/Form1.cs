@@ -14,6 +14,7 @@ namespace WeatherApp
     public partial class Form1 : Form
     {
         BindingList<string> datas = new BindingList<string>();
+        BindingList<City> cities = new BindingList<City>();
 
         public Form1()
         {
@@ -26,11 +27,12 @@ namespace WeatherApp
         {
             var myweather = new WeatherWebReference.ndfdXML();
 
+            //kinyeréshez szükséges paraméterek
             DateTime startDate = DateTime.Now;
             DateTime endDate = DateTime.Now;
 
-            decimal lat = 32.7452M;
-            decimal lng = -117.1979M;
+            decimal lat = 18.2319M;
+            decimal lng = -66.0388M;
 
             var productT = WeatherWebReference.productType.timeseries;
             var unit = WeatherWebReference.unitType.m;
@@ -40,9 +42,10 @@ namespace WeatherApp
                 parameters.temp = true;
             };
 
-            var data = myweather.NDFDgen(lat, lng, productT,
-                startDate, endDate, unit, parameters);
+            //releváns adatok kinyerése
+            var data = myweather.NDFDgen(lat, lng, productT, startDate, endDate, unit, parameters);
 
+            //adatok megjelenítése
             var xml = new XmlDocument();
             xml.LoadXml(data);
 
@@ -52,6 +55,15 @@ namespace WeatherApp
             }
 
             listBox1.DataSource = datas;
+        }
+
+        private void GetCities()
+        {
+            var myweather = new WeatherWebReference.ndfdXML();
+
+            var city = myweather.LatLonListCityNames("1234");
+
+
         }
     }
 }
