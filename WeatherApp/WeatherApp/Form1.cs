@@ -16,16 +16,17 @@ namespace WeatherApp
     {
         BindingList<string> datas = new BindingList<string>();
         BindingList<City> cities = new BindingList<City>();
+        decimal lat;
+        decimal lng;
 
         public Form1()
         {
             InitializeComponent();
 
-            //GetDatas();
             GetCities();
             FillCitiesSource();
             listBox1.DisplayMember = "varos";
-
+            GetLatLng();
         }
 
         private void GetDatas()
@@ -36,8 +37,8 @@ namespace WeatherApp
             DateTime startDate = DateTime.Now;
             DateTime endDate = DateTime.Now;
 
-            decimal lat = 18.2319M;
-            decimal lng = -66.0388M;
+            //decimal lat = 18.2319M;
+            //decimal lng = -66.0388M;
 
             var productT = WeatherWebReference.productType.timeseries;
             var unit = WeatherWebReference.unitType.m;
@@ -59,7 +60,7 @@ namespace WeatherApp
                 datas.Add(element.InnerText);
             }
 
-            listBox1.DataSource = datas;
+            textBox2.Text = datas.ToString();
         }
 
         private void GetCities()
@@ -89,7 +90,7 @@ namespace WeatherApp
 
             var city = myweather.LatLonListCityNames("1234");
 
-            //richTextBox1.Text = city;
+            richTextBox1.Text = city;
 
             var xml = new XmlDocument();
             xml.LoadXml(city);
@@ -112,6 +113,33 @@ namespace WeatherApp
             listBox1.DataSource = (from c in cities
                                    where c.varos.Contains(textBox1.Text)
                                    select c).ToList();
+        }
+
+        public void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GetLatLng();
+        }
+
+        private void GetLatLng()
+        {
+            City city = (City)listBox1.SelectedItem;
+
+            var latitude = (from l in cities
+                            where l == city
+                            select l.lat).FirstOrDefault();
+
+            var longitude = (from l in cities
+                             where l == city
+                             select l.lat).FirstOrDefault();
+
+            lat = latitude;
+            lng = longitude;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //GetDatas();
+            textBox2.Text = lat.ToString();
         }
     }
 }
