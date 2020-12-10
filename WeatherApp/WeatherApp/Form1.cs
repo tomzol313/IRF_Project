@@ -37,8 +37,8 @@ namespace WeatherApp
             DateTime startDate = DateTime.Now;
             DateTime endDate = DateTime.Now;
 
-            //decimal lat = 18.2319M;
-            //decimal lng = -66.0388M;
+            /*decimal lat = 18.2319M;
+            decimal lng = -66.0388M;*/
 
             var productT = WeatherWebReference.productType.timeseries;
             var unit = WeatherWebReference.unitType.m;
@@ -65,6 +65,7 @@ namespace WeatherApp
 
         private void GetCities()
         {
+            //Ez elvileg jó!!!!
             using (StreamReader sr = new StreamReader("cities.csv", Encoding.Default))
             {
                 while (!sr.EndOfStream)
@@ -81,6 +82,8 @@ namespace WeatherApp
                     catch { }
 
                     cities.Add(c);
+                    Console.WriteLine(c.lat);
+                    Console.WriteLine(c.lng);
                 }
 
                 listBox1.DataSource = cities.ToList();
@@ -122,6 +125,7 @@ namespace WeatherApp
 
         private void GetLatLng()
         {
+            //Ezzel is van hiba!!!!!!!!
             City city = (City)listBox1.SelectedItem;
 
             var latitude = (from l in cities
@@ -130,16 +134,16 @@ namespace WeatherApp
 
             var longitude = (from l in cities
                              where l == city
-                             select l.lat).FirstOrDefault();
+                             select l.lng).FirstOrDefault();
 
-            lat = latitude;
-            lng = longitude;
+            /*Console.WriteLine(latitude + "M");
+            Console.WriteLine(longitude + "M");*/
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //GetDatas();
-            textBox2.Text = lat.ToString();
+            GetDatas();
+            //textBox2.Text = lat.ToString();
         }
     }
 }
