@@ -19,7 +19,7 @@ namespace WeatherApp
         decimal lat;
         decimal lng;
         WeatherWebReference.unitType unit;
-        WeatherWebReference.weatherParametersType parameters;
+        //WeatherWebReference.weatherParametersType parameters;
 
         public Form1()
         {
