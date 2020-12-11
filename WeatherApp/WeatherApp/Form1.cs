@@ -23,6 +23,7 @@ namespace WeatherApp
         {
             InitializeComponent();
 
+            //GetDatas();
             GetCities();
             FillCitiesSource();
             listBox1.DisplayMember = "varos";
@@ -37,8 +38,8 @@ namespace WeatherApp
             DateTime startDate = DateTime.Now;
             DateTime endDate = DateTime.Now;
 
-            /*decimal lat = 18.2319M;
-            decimal lng = -66.0388M;*/
+            /*decimal lat = (decimal)18.2319;
+            decimal lng = (decimal)- 66.0388;*/
 
             var productT = WeatherWebReference.productType.timeseries;
             var unit = WeatherWebReference.unitType.m;
@@ -50,7 +51,7 @@ namespace WeatherApp
 
             //releváns adatok kinyerése
             var data = myweather.NDFDgen(lat, lng, productT, startDate, endDate, unit, parameters);
-
+            Console.WriteLine(data);
             //adatok megjelenítése
             var xml = new XmlDocument();
             xml.LoadXml(data);
@@ -59,8 +60,6 @@ namespace WeatherApp
             {
                 datas.Add(element.InnerText);
             }
-
-            textBox2.Text = datas.ToString();
         }
 
         private void GetCities()
@@ -128,22 +127,24 @@ namespace WeatherApp
             //Ezzel is van hiba!!!!!!!!
             City city = (City)listBox1.SelectedItem;
 
-            var latitude = (from l in cities
-                            where l == city
-                            select l.lat).FirstOrDefault();
+            var latitude = (from k in cities
+                            where k == city
+                            select k.lat).FirstOrDefault();
 
             var longitude = (from l in cities
                              where l == city
                              select l.lng).FirstOrDefault();
 
-            /*Console.WriteLine(latitude + "M");
-            Console.WriteLine(longitude + "M");*/
+            lat = latitude;
+            lng = longitude;
+
+            Console.WriteLine(lat);
+            Console.WriteLine(lng);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             GetDatas();
-            //textBox2.Text = lat.ToString();
         }
     }
 }
