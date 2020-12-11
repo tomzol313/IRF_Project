@@ -23,7 +23,6 @@ namespace WeatherApp
         {
             InitializeComponent();
 
-            //GetDatas();
             GetCities();
             FillCitiesSource();
             listBox1.DisplayMember = "varos";
@@ -38,9 +37,6 @@ namespace WeatherApp
             DateTime startDate = DateTime.Now;
             DateTime endDate = DateTime.Now;
 
-            /*decimal lat = (decimal)18.2319;
-            decimal lng = (decimal)- 66.0388;*/
-
             var productT = WeatherWebReference.productType.timeseries;
             var unit = WeatherWebReference.unitType.m;
 
@@ -51,7 +47,7 @@ namespace WeatherApp
 
             //releváns adatok kinyerése
             var data = myweather.NDFDgen(lat, lng, productT, startDate, endDate, unit, parameters);
-            Console.WriteLine(data);
+
             //adatok megjelenítése
             var xml = new XmlDocument();
             xml.LoadXml(data);
@@ -60,11 +56,11 @@ namespace WeatherApp
             {
                 datas.Add(element.InnerText);
             }
+            listBox2.DataSource = datas;
         }
 
         private void GetCities()
         {
-            //Ez elvileg jó!!!!
             using (StreamReader sr = new StreamReader("cities.csv", Encoding.Default))
             {
                 while (!sr.EndOfStream)
@@ -87,22 +83,6 @@ namespace WeatherApp
 
                 listBox1.DataSource = cities.ToList();
             }
-
-            /*var myweather = new WeatherWebReference.ndfdXML();
-
-            var city = myweather.LatLonListCityNames("1234");
-
-            richTextBox1.Text = city;
-
-            var xml = new XmlDocument();
-            xml.LoadXml(city);
-
-            foreach (XmlElement element in xml.GetElementsByTagName("cityNameList"))
-            {
-                cities.Add(element.InnerText);
-            }
-
-            listBox1.DataSource = cities;*/
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -124,7 +104,6 @@ namespace WeatherApp
 
         private void GetLatLng()
         {
-            //Ezzel is van hiba!!!!!!!!
             City city = (City)listBox1.SelectedItem;
 
             var latitude = (from k in cities
@@ -137,9 +116,6 @@ namespace WeatherApp
 
             lat = latitude;
             lng = longitude;
-
-            Console.WriteLine(lat);
-            Console.WriteLine(lng);
         }
 
         private void button1_Click(object sender, EventArgs e)
