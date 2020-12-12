@@ -49,27 +49,76 @@ namespace WeatherApp
                 unit = WeatherWebReference.unitType.e;
             }
 
-            var productT = WeatherWebReference.productType.timeseries;
-            
-
-            var parameters = new WeatherWebReference.weatherParametersType();
+            if (checkedListBox1.CheckedItems.Contains("Jelenlegi hőmérséklet"))
             {
-                parameters.temp = true;
-                //parameters.maxt = true;
-            };
+                var parameters = new WeatherWebReference.weatherParametersType();
+                {
+                    parameters.temp = true;
+                };
 
-            //releváns adatok kinyerése
-            var data = myweather.NDFDgen(lat, lng, productT, DateTime.Now, DateTime.Now, unit, parameters);
+                var data = myweather.NDFDgen(lat, lng, WeatherWebReference.productType.timeseries, 
+                                             DateTime.Now, DateTime.Now, unit, parameters);
 
-            //adatok megjelenítése
-            var xml = new XmlDocument();
-            xml.LoadXml(data);
+                var xml = new XmlDocument();
+                xml.LoadXml(data);
 
-            foreach (XmlElement element in xml.GetElementsByTagName("value"))
-            {
-                label2.Text = element.InnerText;
+                foreach (XmlElement element in xml.GetElementsByTagName("value"))
+                {
+                    listBox2.Items.Add("Temperature: " + element.InnerText);
+                }
             }
-            //listBox2.DataSource = datas;
+
+            if (checkedListBox1.CheckedItems.Contains("Napi max. hőmérséklet"))
+            {
+                var parameters = new WeatherWebReference.weatherParametersType();
+                {
+                    parameters.maxt = true;
+                };
+
+                var data = myweather.NDFDgen(lat, lng, WeatherWebReference.productType.timeseries,
+                                             DateTime.Now, DateTime.Now, unit, parameters);
+                Console.WriteLine(data); 
+                var xml = new XmlDocument();
+                xml.LoadXml(data);
+
+                if (data.ToString().Contains("Daily Maximum Temperature"))
+                {
+                    foreach (XmlElement element in xml.GetElementsByTagName("value"))
+                    {
+                        listBox2.Items.Add("Max temperature: " + element.InnerText);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("A kiválasztott városhoz nem tartozik napi maximum érték");
+                }
+            }
+
+            if (checkedListBox1.CheckedItems.Contains("Napi min. hőmérséklet"))
+            {
+                var parameters = new WeatherWebReference.weatherParametersType();
+                {
+                    parameters.mint = true;
+                };
+
+                var data = myweather.NDFDgen(lat, lng, WeatherWebReference.productType.timeseries,
+                                             DateTime.Now, DateTime.Now, unit, parameters);
+
+                var xml = new XmlDocument();
+                xml.LoadXml(data);
+
+                if (data.ToString().Contains("Daily Minimum Temperature"))
+                {
+                    foreach (XmlElement element in xml.GetElementsByTagName("value"))
+                    {
+                        listBox2.Items.Add("Min temperature: " + element.InnerText);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("A kiválasztott városhoz nem tartozik napi minimum érték");
+                }
+            }
         }
 
         private void GetCities()
@@ -90,8 +139,6 @@ namespace WeatherApp
                     catch { }
 
                     cities.Add(c);
-                    Console.WriteLine(c.lat);
-                    Console.WriteLine(c.lng);
                 }
 
                 listBox1.DataSource = cities.ToList();
@@ -133,6 +180,7 @@ namespace WeatherApp
 
         private void button1_Click(object sender, EventArgs e)
         {
+            listBox2.Items.Clear();
             GetDatas();
         }
     }
