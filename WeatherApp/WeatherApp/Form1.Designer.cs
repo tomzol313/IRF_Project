@@ -35,12 +35,14 @@ namespace WeatherApp
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.listBox2 = new System.Windows.Forms.ListBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.mainPanel = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(13, 39);
+            this.listBox1.Location = new System.Drawing.Point(13, 45);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(180, 108);
             this.listBox1.TabIndex = 0;
@@ -48,7 +50,7 @@ namespace WeatherApp
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(13, 13);
+            this.textBox1.Location = new System.Drawing.Point(13, 19);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(179, 20);
             this.textBox1.TabIndex = 1;
@@ -56,11 +58,11 @@ namespace WeatherApp
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 415);
+            this.button1.Location = new System.Drawing.Point(234, 160);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(100, 29);
             this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
+            this.button1.Text = "Mehet";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -70,7 +72,7 @@ namespace WeatherApp
             this.comboBox1.Items.AddRange(new object[] {
             "Celsius",
             "Fahrenheit"});
-            this.comboBox1.Location = new System.Drawing.Point(210, 13);
+            this.comboBox1.Location = new System.Drawing.Point(210, 19);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(152, 21);
             this.comboBox1.TabIndex = 9;
@@ -87,7 +89,7 @@ namespace WeatherApp
             "Csapadék valószínűsége",
             "Páratartalom",
             "Szélerősség"});
-            this.checkedListBox1.Location = new System.Drawing.Point(210, 39);
+            this.checkedListBox1.Location = new System.Drawing.Point(210, 45);
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.Size = new System.Drawing.Size(152, 109);
             this.checkedListBox1.TabIndex = 10;
@@ -95,16 +97,35 @@ namespace WeatherApp
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(381, 39);
+            this.listBox2.Location = new System.Drawing.Point(381, 45);
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(205, 108);
             this.listBox2.TabIndex = 11;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(435, 8);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(100, 29);
+            this.button2.TabIndex = 12;
+            this.button2.Text = "Kiírás";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // mainPanel
+            // 
+            this.mainPanel.Location = new System.Drawing.Point(631, 45);
+            this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Size = new System.Drawing.Size(100, 100);
+            this.mainPanel.TabIndex = 13;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 228);
+            this.Controls.Add(this.mainPanel);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.checkedListBox1);
             this.Controls.Add(this.comboBox1);
@@ -126,6 +147,8 @@ namespace WeatherApp
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Panel mainPanel;
     }
 }
 

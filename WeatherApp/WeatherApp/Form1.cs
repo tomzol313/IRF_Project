@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using WeatherApp.Entities;
 
 namespace WeatherApp
 {
@@ -32,6 +33,9 @@ namespace WeatherApp
             FillCitiesSource();
             listBox1.DisplayMember = "varos";
             GetLatLng();
+
+            var sun = new Sun();
+            mainPanel.Controls.Add(sun);
         }
 
         private void GetDatas()
@@ -305,6 +309,35 @@ namespace WeatherApp
         {
             listBox2.Items.Clear();
             GetDatas();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            /*SaveFileDialog sfd = new SaveFileDialog();
+
+            sfd.InitialDirectory = Application.StartupPath;
+            sfd.Filter = "Comma Seperated Values (*.csv)|*.csv";
+            sfd.DefaultExt = "csv";
+            sfd.AddExtension = true;
+
+            if (sfd.ShowDialog() != DialogResult.OK) return;
+
+            using (StreamWriter sw = new StreamWriter(sfd.FileName, false, Encoding.UTF8))
+            {
+                sw.Write(DateTime.Now);
+                sw.Write(";");
+
+                foreach (var i in listBox1.Items)
+                {
+                    foreach (var item in collection)
+                    {
+
+                    }
+                    sw.Write(i);
+                    sw.Write(";");
+                    sw.WriteLine();
+                }
+            }*/
         }
     }
 }
