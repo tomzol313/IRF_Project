@@ -42,7 +42,7 @@ namespace WeatherApp
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(13, 39);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(180, 95);
+            this.listBox1.Size = new System.Drawing.Size(180, 108);
             this.listBox1.TabIndex = 0;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -72,7 +72,7 @@ namespace WeatherApp
             "Fahrenheit"});
             this.comboBox1.Location = new System.Drawing.Point(210, 13);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(141, 21);
+            this.comboBox1.Size = new System.Drawing.Size(152, 21);
             this.comboBox1.TabIndex = 9;
             // 
             // checkedListBox1
@@ -82,18 +82,22 @@ namespace WeatherApp
             this.checkedListBox1.Items.AddRange(new object[] {
             "Jelenlegi hőmérséklet",
             "Napi max. hőmérséklet",
-            "Napi min. hőmérséklet"});
-            this.checkedListBox1.Location = new System.Drawing.Point(210, 41);
+            "Napi min. hőmérséklet",
+            "Felhőtakaró",
+            "Csapadék valószínűsége",
+            "Páratartalom",
+            "Szélerősség"});
+            this.checkedListBox1.Location = new System.Drawing.Point(210, 39);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(141, 94);
+            this.checkedListBox1.Size = new System.Drawing.Size(152, 109);
             this.checkedListBox1.TabIndex = 10;
             // 
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(368, 12);
+            this.listBox2.Location = new System.Drawing.Point(381, 39);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(180, 95);
+            this.listBox2.Size = new System.Drawing.Size(205, 108);
             this.listBox2.TabIndex = 11;
             // 
             // Form1
