@@ -67,7 +67,7 @@ namespace WeatherApp
                 {
                     foreach (XmlElement element in xml.GetElementsByTagName("value"))
                     {
-                        listBox2.Items.Add("Aktuális hőmérséklet: " + element.InnerText);
+                        listBox2.Items.Add(string.Format("{0} {1}", "Aktuális hőmérséklet: ", element.InnerText));
                     }
                 }
                 else
@@ -93,7 +93,7 @@ namespace WeatherApp
                 {
                     foreach (XmlElement element in xml.GetElementsByTagName("value"))
                     {
-                        listBox2.Items.Add("Napi max. hőmérséklet: " + element.InnerText);
+                        listBox2.Items.Add(string.Format("{0} {1}", "Napi max. hőmérséklet: ", element.InnerText));
                     }
                 }
                 else
@@ -187,7 +187,7 @@ namespace WeatherApp
                 {
                     foreach (XmlElement element in xml.GetElementsByTagName("value"))
                     {
-                        listBox2.Items.Add("Csapadék valószínűsége: " + element.InnerText + "%");
+                        listBox2.Items.Add(string.Format("{0} {1}", "Csapadék valószínűsége: ", element.InnerText + "%"));
                         csapadekP = Convert.ToInt32(element.InnerText);
                     }
                 }
@@ -346,7 +346,7 @@ namespace WeatherApp
 
         private void button2_Click(object sender, EventArgs e)
         {
-            /*SaveFileDialog sfd = new SaveFileDialog();
+            SaveFileDialog sfd = new SaveFileDialog();
 
             sfd.InitialDirectory = Application.StartupPath;
             sfd.Filter = "Comma Seperated Values (*.csv)|*.csv";
@@ -357,20 +357,29 @@ namespace WeatherApp
 
             using (StreamWriter sw = new StreamWriter(sfd.FileName, false, Encoding.UTF8))
             {
-                sw.Write(DateTime.Now);
-                sw.Write(";");
+                /*BindingList<string> toWrite = new BindingList<string>();
+                toWrite.Add(listBox2.Items.ToString());
 
-                foreach (var i in listBox1.Items)
+                City c = (City)listBox1.SelectedItem;
+
+                sw.WriteLine(c + ";", DateTime.Now + ";");
+
+                foreach (var i in toWrite)
                 {
-                    foreach (var item in collection)
-                    {
+                    sw.Write(i);
+                    sw.Write(";");
+                    sw.Write(i);
+                }*/
 
-                    }
+                foreach (var i in listBox2.Items)
+                {
+                    sw.Write(i);
+                    sw.Write(";");
                     sw.Write(i);
                     sw.Write(";");
                     sw.WriteLine();
                 }
-            }*/
+            }
         }
     }
 }
