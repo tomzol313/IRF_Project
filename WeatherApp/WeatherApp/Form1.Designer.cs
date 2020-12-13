@@ -114,7 +114,6 @@ namespace WeatherApp
             // 
             // mainPanel
             // 
-            this.mainPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mainPanel.Location = new System.Drawing.Point(592, 8);
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(200, 200);

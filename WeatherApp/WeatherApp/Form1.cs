@@ -19,6 +19,8 @@ namespace WeatherApp
         decimal lat;
         decimal lng;
         WeatherWebReference.unitType unit;
+        int felhoErtek = -1;
+        int csapadekP = -1;
 
         public Form1()
         {
@@ -33,9 +35,6 @@ namespace WeatherApp
             FillCitiesSource();
             listBox1.DisplayMember = "varos";
             GetLatLng();
-
-            /*var cr = new CloudAndSunAndRain();
-            mainPanel.Controls.Add(cr);*/
         }
 
         private void GetDatas()
@@ -146,13 +145,15 @@ namespace WeatherApp
                 {
                     foreach (XmlElement element in xml.GetElementsByTagName("value"))
                     {
-                        if (Convert.ToInt32(element.InnerText) <= 25)
+                        felhoErtek = Convert.ToInt32(element.InnerText);
+
+                        if (felhoErtek <= 25)
                         {
                             listBox2.Items.Add("Felhőtakaró: tiszta");
                         }
                         else
                         {
-                            if (Convert.ToInt32(element.InnerText) > 50)
+                            if (felhoErtek > 50)
                             {
                                 listBox2.Items.Add("Felhőtakaró: felhős");
                             }
@@ -187,6 +188,7 @@ namespace WeatherApp
                     foreach (XmlElement element in xml.GetElementsByTagName("value"))
                     {
                         listBox2.Items.Add("Csapadék valószínűsége: " + element.InnerText + "%");
+                        csapadekP = Convert.ToInt32(element.InnerText);
                     }
                 }
                 else
@@ -305,11 +307,41 @@ namespace WeatherApp
             lng = longitude;
         }
 
+        private void GetGraph()
+        {
+            var s = new Sun();
+            var c = new Cloud();
+            var cs = new CloudAndSun();
+            var cr = new CloudAndRain();
+            var csr = new CloudAndSunAndRain();
+
+            if (felhoErtek != -1)
+            {
+                if (felhoErtek <= 25) { mainPanel.Controls.Add(s); }
+                else
+                {
+                    if (csapadekP != -1)
+                    {
+                        if (csapadekP < 50 && felhoErtek > 50) { mainPanel.Controls.Add(c); }
+                        if (csapadekP < 50 && felhoErtek <= 50 && felhoErtek > 25) { mainPanel.Controls.Add(cs); }
+                        if (csapadekP >= 50 && felhoErtek > 50) { mainPanel.Controls.Add(cr); }
+                        if (csapadekP >= 50 && felhoErtek <= 50 && felhoErtek > 25) { mainPanel.Controls.Add(csr); }
+                    }
+                    else
+                    {
+                        if (felhoErtek > 50) { mainPanel.Controls.Add(c); }
+                        if (felhoErtek <= 50 && felhoErtek > 25) { mainPanel.Controls.Add(cs); }
+                    }
+                }
+            }
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             mainPanel.Controls.Clear();
             listBox2.Items.Clear();
             GetDatas();
+            GetGraph();
         }
 
         private void button2_Click(object sender, EventArgs e)
