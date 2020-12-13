@@ -62,6 +62,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Entities\Cloud.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Entities\CloudAndSun.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Entities\Sun.cs">
       <SubType>Component</SubType>
     </Compile>

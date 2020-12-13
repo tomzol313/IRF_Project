@@ -34,8 +34,8 @@ namespace WeatherApp
             listBox1.DisplayMember = "varos";
             GetLatLng();
 
-            var sun = new Sun();
-            mainPanel.Controls.Add(sun);
+            var cloudandsun = new CloudAndSun();
+            mainPanel.Controls.Add(cloudandsun);
         }
 
         private void GetDatas()
