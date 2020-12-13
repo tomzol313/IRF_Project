@@ -5,25 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WeatherApp.Abstractions;
 
 namespace WeatherApp.Entities
 {
-    class Sun : Label
+    public class Sun : WeathersGraphs
     {
-        public Sun()
-        {
-            AutoSize = false;
-            Width = 200;
-            Height = Width;
-            Paint += Sun_Paint;
-        }
-
-        private void Sun_Paint(object sender, PaintEventArgs e)
-        {
-            DrawImage(e.Graphics);
-        }
-
-        protected void DrawImage(Graphics g)
+        protected override void DrawImage(Graphics g)
         {
             g.FillEllipse(new SolidBrush(Color.Yellow), 50, 50, 100, 100);
             for (int i = 0; i <= 360; i = i + 15)

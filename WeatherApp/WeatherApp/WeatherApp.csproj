@@ -53,6 +53,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstractions\WeathersGraphs.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="City.cs" />
     <Compile Include="Connected Services\WeatherServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
