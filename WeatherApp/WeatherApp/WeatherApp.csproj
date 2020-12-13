@@ -65,7 +65,13 @@
     <Compile Include="Entities\Cloud.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Entities\CloudAndRain.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Entities\CloudAndSun.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Entities\CloudAndSunAndRain.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Entities\Sun.cs">

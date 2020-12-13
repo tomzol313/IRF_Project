@@ -8,12 +8,15 @@ using WeatherApp.Abstractions;
 
 namespace WeatherApp.Entities
 {
-    public class Cloud : WeathersGraphs
+    class CloudAndRain : WeathersGraphs
     {
         protected override void DrawImage(Graphics g)
         {
             Image imageCloud = Image.FromFile("Images/cloud.png");
-            g.DrawImage(imageCloud, new Rectangle(25, 40, 150, 78));
+            g.DrawImage(imageCloud, new Rectangle(37, 40, 125, 65));
+
+            Image imageRain = Image.FromFile("Images/rain.png");
+            g.DrawImage(imageRain, new Rectangle(58, 105, 83, 55));
         }
     }
 }
