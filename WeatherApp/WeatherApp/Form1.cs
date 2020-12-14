@@ -30,6 +30,11 @@ namespace WeatherApp
             {
                 checkedListBox1.SetItemChecked(i, true);
             }
+
+            listView1.View = View.Details;
+            listView1.Columns.Add("Megnevezés", 140);
+            listView1.Columns.Add("Érték", 60);
+            
             comboBox1.SelectedItem = "Celsius";
             GetCities();
             FillCitiesSource();
@@ -57,22 +62,32 @@ namespace WeatherApp
                     parameters.temp = true;
                 };
 
-                var data = myweather.NDFDgen(lat, lng, WeatherWebReference.productType.timeseries, 
+                try
+                {
+                    var data = myweather.NDFDgen(lat, lng, WeatherWebReference.productType.timeseries,
                                              DateTime.Now, DateTime.Now, unit, parameters);
 
-                var xml = new XmlDocument();
-                xml.LoadXml(data);
-                
-                if (data.ToString().Contains("Temperature"))
-                {
-                    foreach (XmlElement element in xml.GetElementsByTagName("value"))
+                    var xml = new XmlDocument();
+                    xml.LoadXml(data);
+
+                    if (data.ToString().Contains("Temperature"))
                     {
-                        listBox2.Items.Add(string.Format("{0} {1}", "Aktuális hőmérséklet: ", element.InnerText));
+                        foreach (XmlElement element in xml.GetElementsByTagName("value"))
+                        {
+                            ListViewItem item = new ListViewItem("Aktuális hőmérséklet:");
+                            item.SubItems.Add(element.InnerText);
+                            listView1.Items.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("A kiválasztott városhoz nem tartozik aktuális hőmérséklet");
                     }
                 }
-                else
+                catch (Exception e)
                 {
-                    MessageBox.Show("A kiválasztott városhoz nem tartozik aktuális hőmérséklet");
+
+                    MessageBox.Show(e.Message);
                 }
             }
 
@@ -93,7 +108,9 @@ namespace WeatherApp
                 {
                     foreach (XmlElement element in xml.GetElementsByTagName("value"))
                     {
-                        listBox2.Items.Add(string.Format("{0} {1}", "Napi max. hőmérséklet: ", element.InnerText));
+                        ListViewItem item = new ListViewItem("Napi max. hőmérséklet:");
+                        item.SubItems.Add(element.InnerText);
+                        listView1.Items.Add(item);
                     }
                 }
                 else
@@ -119,7 +136,9 @@ namespace WeatherApp
                 {
                     foreach (XmlElement element in xml.GetElementsByTagName("value"))
                     {
-                        listBox2.Items.Add("Napi min. hőmérséklet: " + element.InnerText);
+                        ListViewItem item = new ListViewItem("Napi min. hőmérséklet:");
+                        item.SubItems.Add(element.InnerText);
+                        listView1.Items.Add(item);
                     }
                 }
                 else
@@ -149,17 +168,23 @@ namespace WeatherApp
 
                         if (felhoErtek <= 25)
                         {
-                            listBox2.Items.Add("Felhőtakaró: tiszta");
+                            ListViewItem item = new ListViewItem("Felhőtakaró:");
+                            item.SubItems.Add("tiszta");
+                            listView1.Items.Add(item);
                         }
                         else
                         {
                             if (felhoErtek > 50)
                             {
-                                listBox2.Items.Add("Felhőtakaró: felhős");
+                                ListViewItem item = new ListViewItem("Felhőtakaró:");
+                                item.SubItems.Add("felhős");
+                                listView1.Items.Add(item);
                             }
                             else
                             {
-                                listBox2.Items.Add("Felhőtakaró: néhol felhős");
+                                ListViewItem item = new ListViewItem("Felhőtakaró:");
+                                item.SubItems.Add("néhol felhős");
+                                listView1.Items.Add(item);
                             }
                         }
                     }
@@ -187,7 +212,9 @@ namespace WeatherApp
                 {
                     foreach (XmlElement element in xml.GetElementsByTagName("value"))
                     {
-                        listBox2.Items.Add(string.Format("{0} {1}", "Csapadék valószínűsége: ", element.InnerText + "%"));
+                        ListViewItem item = new ListViewItem("Csapadék valószínűsége:");
+                        item.SubItems.Add(element.InnerText + "%");
+                        listView1.Items.Add(item);
                         csapadekP = Convert.ToInt32(element.InnerText);
                     }
                 }
@@ -214,7 +241,9 @@ namespace WeatherApp
                 {
                     foreach (XmlElement element in xml.GetElementsByTagName("value"))
                     {
-                        listBox2.Items.Add("Páratartalom: " + element.InnerText + "%");
+                        ListViewItem item = new ListViewItem("Páratartalom:");
+                        item.SubItems.Add(element.InnerText + "%");
+                        listView1.Items.Add(item);
                     }
                 }
                 else
@@ -240,7 +269,9 @@ namespace WeatherApp
                 {
                     foreach (XmlElement element in xml.GetElementsByTagName("value"))
                     {
-                        listBox2.Items.Add("Szélerősség: " + element.InnerText + " m/s");
+                        ListViewItem item = new ListViewItem("Szélerősség:");
+                        item.SubItems.Add(element.InnerText + " m/s");
+                        listView1.Items.Add(item);
                     }
                 }
                 else
@@ -339,7 +370,7 @@ namespace WeatherApp
         private void button1_Click(object sender, EventArgs e)
         {
             mainPanel.Controls.Clear();
-            listBox2.Items.Clear();
+            //listBox2.Items.Clear();
             GetDatas();
             GetGraph();
         }
@@ -357,27 +388,26 @@ namespace WeatherApp
 
             using (StreamWriter sw = new StreamWriter(sfd.FileName, false, Encoding.UTF8))
             {
-                /*BindingList<string> toWrite = new BindingList<string>();
-                toWrite.Add(listBox2.Items.ToString());
-
                 City c = (City)listBox1.SelectedItem;
 
-                sw.WriteLine(c + ";", DateTime.Now + ";");
+                sw.Write(c.varos);
+                sw.Write(";");
+                sw.Write(DateTime.Now);
+                sw.WriteLine();
+                sw.Write("Megnevezés;");
+                sw.Write("Érték;");
+                sw.WriteLine();
 
-                foreach (var i in toWrite)
+                foreach (ListViewItem item in listView1.Items)
                 {
-                    sw.Write(i);
+                    sw.Write(item.Text);
                     sw.Write(";");
-                    sw.Write(i);
-                }*/
-
-                foreach (var i in listBox2.Items)
-                {
-                    sw.Write(i);
-                    sw.Write(";");
-                    sw.Write(i);
-                    sw.Write(";");
-                    sw.WriteLine();
+                    for (int i = 1; i < item.SubItems.Count; i++)
+                    {
+                        sw.Write(item.SubItems[i].Text);
+                        sw.Write(";");
+                        sw.WriteLine();
+                    }
                 }
             }
         }
