@@ -122,7 +122,7 @@ namespace WeatherApp
             // 
             // mainPanel
             // 
-            this.mainPanel.Location = new System.Drawing.Point(735, 30);
+            this.mainPanel.Location = new System.Drawing.Point(717, 30);
             this.mainPanel.Name = "mainPanel";
             this.mainPanel.Size = new System.Drawing.Size(200, 200);
             this.mainPanel.TabIndex = 13;
@@ -174,7 +174,7 @@ namespace WeatherApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(946, 279);
+            this.ClientSize = new System.Drawing.Size(928, 279);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);

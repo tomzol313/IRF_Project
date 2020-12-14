@@ -26,30 +26,7 @@ namespace WeatherApp
         {
             InitializeComponent();
 
-            this.Icon = new Icon("Images/icon.ico");
-            this.BackColor = Color.FromArgb(193, 209, 219);
-            this.ForeColor = Color.FromArgb(48, 71, 94);
-            listView1.BackColor = Color.FromArgb(193, 209, 219);
-            listView1.BorderStyle = BorderStyle.None;
-            listBox1.BackColor = Color.FromArgb(147, 179, 207);
-            checkedListBox1.BackColor = Color.FromArgb(193, 209, 219);
-            textBox1.BackColor = Color.FromArgb(147, 179, 207);
-            comboBox1.BackColor = Color.FromArgb(147, 179, 207);
-
-            button1.BackColor = Color.FromArgb(122, 160, 203);
-            button1.FlatAppearance.BorderColor = Color.FromArgb(122, 160, 203);
-            button2.BackColor = Color.FromArgb(122, 160, 203);
-            button2.FlatAppearance.BorderColor = Color.FromArgb(122, 160, 203);
-
-            for (int i = 0; i < checkedListBox1.Items.Count; i++)
-            {
-                checkedListBox1.SetItemChecked(i, true);
-            }
-
-            listView1.View = View.Details;
-            listView1.Columns.Add("Megnevezés", 150);
-            listView1.Columns.Add("Érték", 90);
-            
+            Designer();
             comboBox1.SelectedItem = "Celsius";
             GetCities();
             FillCitiesSource();
@@ -468,6 +445,32 @@ namespace WeatherApp
                     }
                 }
             }
+        }
+
+        private void Designer()
+        {
+            this.Icon = new Icon("Images/icon.ico");
+            this.BackColor = Color.FromArgb(193, 209, 219);
+            this.ForeColor = Color.FromArgb(48, 71, 94);
+            listView1.BackColor = Color.FromArgb(193, 209, 219);
+            listView1.BorderStyle = BorderStyle.None;
+            listBox1.BackColor = Color.FromArgb(147, 179, 207);
+            checkedListBox1.BackColor = Color.FromArgb(193, 209, 219);
+            textBox1.BackColor = Color.FromArgb(147, 179, 207);
+            comboBox1.BackColor = Color.FromArgb(147, 179, 207);
+            button1.BackColor = Color.FromArgb(122, 160, 203);
+            button1.FlatAppearance.BorderColor = Color.FromArgb(122, 160, 203);
+            button2.BackColor = Color.FromArgb(122, 160, 203);
+            button2.FlatAppearance.BorderColor = Color.FromArgb(122, 160, 203);
+
+            for (int i = 0; i < checkedListBox1.Items.Count; i++)
+            {
+                checkedListBox1.SetItemChecked(i, true);
+            }
+
+            listView1.View = View.Details;
+            listView1.Columns.Add("Megnevezés", 150);
+            listView1.Columns.Add("Érték", 90);
         }
     }
 }
