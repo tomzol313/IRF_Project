@@ -98,24 +98,31 @@ namespace WeatherApp
                     parameters.maxt = true;
                 };
 
-                var data = myweather.NDFDgen(lat, lng, WeatherWebReference.productType.timeseries,
-                                             DateTime.Now, DateTime.Now, unit, parameters);
-                Console.WriteLine(data); 
-                var xml = new XmlDocument();
-                xml.LoadXml(data);
-
-                if (data.ToString().Contains("Daily Maximum Temperature"))
+                try
                 {
-                    foreach (XmlElement element in xml.GetElementsByTagName("value"))
+                    var data = myweather.NDFDgen(lat, lng, WeatherWebReference.productType.timeseries,
+                                             DateTime.Now, DateTime.Now, unit, parameters);
+                    Console.WriteLine(data);
+                    var xml = new XmlDocument();
+                    xml.LoadXml(data);
+
+                    if (data.ToString().Contains("Daily Maximum Temperature"))
                     {
-                        ListViewItem item = new ListViewItem("Napi max. hőmérséklet:");
-                        item.SubItems.Add(element.InnerText);
-                        listView1.Items.Add(item);
+                        foreach (XmlElement element in xml.GetElementsByTagName("value"))
+                        {
+                            ListViewItem item = new ListViewItem("Napi max. hőmérséklet:");
+                            item.SubItems.Add(element.InnerText);
+                            listView1.Items.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("A kiválasztott városhoz nem tartozik napi maximum érték");
                     }
                 }
-                else
+                catch (Exception e)
                 {
-                    MessageBox.Show("A kiválasztott városhoz nem tartozik napi maximum érték");
+                    MessageBox.Show(e.Message);
                 }
             }
 
@@ -126,24 +133,31 @@ namespace WeatherApp
                     parameters.mint = true;
                 };
 
-                var data = myweather.NDFDgen(lat, lng, WeatherWebReference.productType.timeseries,
+                try
+                {
+                    var data = myweather.NDFDgen(lat, lng, WeatherWebReference.productType.timeseries,
                                              DateTime.Now, DateTime.Now, unit, parameters);
 
-                var xml = new XmlDocument();
-                xml.LoadXml(data);
+                    var xml = new XmlDocument();
+                    xml.LoadXml(data);
 
-                if (data.ToString().Contains("Daily Minimum Temperature"))
-                {
-                    foreach (XmlElement element in xml.GetElementsByTagName("value"))
+                    if (data.ToString().Contains("Daily Minimum Temperature"))
                     {
-                        ListViewItem item = new ListViewItem("Napi min. hőmérséklet:");
-                        item.SubItems.Add(element.InnerText);
-                        listView1.Items.Add(item);
+                        foreach (XmlElement element in xml.GetElementsByTagName("value"))
+                        {
+                            ListViewItem item = new ListViewItem("Napi min. hőmérséklet:");
+                            item.SubItems.Add(element.InnerText);
+                            listView1.Items.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("A kiválasztott városhoz nem tartozik napi minimum érték");
                     }
                 }
-                else
+                catch (Exception e)
                 {
-                    MessageBox.Show("A kiválasztott városhoz nem tartozik napi minimum érték");
+                    MessageBox.Show(e.Message);
                 }
             }
 
@@ -154,44 +168,51 @@ namespace WeatherApp
                     parameters.sky = true;
                 };
 
-                var data = myweather.NDFDgen(lat, lng, WeatherWebReference.productType.timeseries,
-                                             DateTime.Now, DateTime.Now, unit, parameters);
-                
-                var xml = new XmlDocument();
-                xml.LoadXml(data);
-
-                if (data.ToString().Contains("Cloud Cover Amount"))
+                try
                 {
-                    foreach (XmlElement element in xml.GetElementsByTagName("value"))
-                    {
-                        felhoErtek = Convert.ToInt32(element.InnerText);
+                    var data = myweather.NDFDgen(lat, lng, WeatherWebReference.productType.timeseries,
+                                             DateTime.Now, DateTime.Now, unit, parameters);
 
-                        if (felhoErtek <= 25)
+                    var xml = new XmlDocument();
+                    xml.LoadXml(data);
+
+                    if (data.ToString().Contains("Cloud Cover Amount"))
+                    {
+                        foreach (XmlElement element in xml.GetElementsByTagName("value"))
                         {
-                            ListViewItem item = new ListViewItem("Felhőtakaró:");
-                            item.SubItems.Add("tiszta");
-                            listView1.Items.Add(item);
-                        }
-                        else
-                        {
-                            if (felhoErtek > 50)
+                            felhoErtek = Convert.ToInt32(element.InnerText);
+
+                            if (felhoErtek <= 25)
                             {
                                 ListViewItem item = new ListViewItem("Felhőtakaró:");
-                                item.SubItems.Add("felhős");
+                                item.SubItems.Add("tiszta");
                                 listView1.Items.Add(item);
                             }
                             else
                             {
-                                ListViewItem item = new ListViewItem("Felhőtakaró:");
-                                item.SubItems.Add("néhol felhős");
-                                listView1.Items.Add(item);
+                                if (felhoErtek > 50)
+                                {
+                                    ListViewItem item = new ListViewItem("Felhőtakaró:");
+                                    item.SubItems.Add("felhős");
+                                    listView1.Items.Add(item);
+                                }
+                                else
+                                {
+                                    ListViewItem item = new ListViewItem("Felhőtakaró:");
+                                    item.SubItems.Add("néhol felhős");
+                                    listView1.Items.Add(item);
+                                }
                             }
                         }
                     }
+                    else
+                    {
+                        MessageBox.Show("A kiválasztott városhoz nem tartozik felhőtakaróra vonatkozó érték");
+                    }
                 }
-                else
+                catch (Exception e)
                 {
-                    MessageBox.Show("A kiválasztott városhoz nem tartozik felhőtakaróra vonatkozó érték");
+                    MessageBox.Show(e.Message);
                 }
             }
 
@@ -202,25 +223,32 @@ namespace WeatherApp
                     parameters.pop12 = true;
                 };
 
-                var data = myweather.NDFDgen(lat, lng, WeatherWebReference.productType.timeseries,
-                                             DateTime.Now, DateTime.Now, unit, parameters);
-                
-                var xml = new XmlDocument();
-                xml.LoadXml(data);
-
-                if (data.ToString().Contains("12 Hourly Probability of Precipitation"))
+                try
                 {
-                    foreach (XmlElement element in xml.GetElementsByTagName("value"))
+                    var data = myweather.NDFDgen(lat, lng, WeatherWebReference.productType.timeseries,
+                                             DateTime.Now, DateTime.Now, unit, parameters);
+
+                    var xml = new XmlDocument();
+                    xml.LoadXml(data);
+
+                    if (data.ToString().Contains("12 Hourly Probability of Precipitation"))
                     {
-                        ListViewItem item = new ListViewItem("Csapadék valószínűsége:");
-                        item.SubItems.Add(element.InnerText + "%");
-                        listView1.Items.Add(item);
-                        csapadekP = Convert.ToInt32(element.InnerText);
+                        foreach (XmlElement element in xml.GetElementsByTagName("value"))
+                        {
+                            ListViewItem item = new ListViewItem("Csapadék valószínűsége:");
+                            item.SubItems.Add(element.InnerText + "%");
+                            listView1.Items.Add(item);
+                            csapadekP = Convert.ToInt32(element.InnerText);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("A kiválasztott városhoz nem tartozik valószínűség");
                     }
                 }
-                else
+                catch (Exception e)
                 {
-                    MessageBox.Show("A kiválasztott városhoz nem tartozik valószínűség");
+                    MessageBox.Show(e.Message);
                 }
             }
 
@@ -231,24 +259,31 @@ namespace WeatherApp
                     parameters.rh = true;
                 };
 
-                var data = myweather.NDFDgen(lat, lng, WeatherWebReference.productType.timeseries,
-                                             DateTime.Now, DateTime.Now, unit, parameters);
-                
-                var xml = new XmlDocument();
-                xml.LoadXml(data);
-
-                if (data.ToString().Contains("Relative Humidity"))
+                try
                 {
-                    foreach (XmlElement element in xml.GetElementsByTagName("value"))
+                    var data = myweather.NDFDgen(lat, lng, WeatherWebReference.productType.timeseries,
+                                             DateTime.Now, DateTime.Now, unit, parameters);
+
+                    var xml = new XmlDocument();
+                    xml.LoadXml(data);
+
+                    if (data.ToString().Contains("Relative Humidity"))
                     {
-                        ListViewItem item = new ListViewItem("Páratartalom:");
-                        item.SubItems.Add(element.InnerText + "%");
-                        listView1.Items.Add(item);
+                        foreach (XmlElement element in xml.GetElementsByTagName("value"))
+                        {
+                            ListViewItem item = new ListViewItem("Páratartalom:");
+                            item.SubItems.Add(element.InnerText + "%");
+                            listView1.Items.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("A kiválasztott városhoz nem tartozik páratartalomra vonatkozó adat");
                     }
                 }
-                else
+                catch (Exception e)
                 {
-                    MessageBox.Show("A kiválasztott városhoz nem tartozik páratartalomra vonatkozó adat");
+                    MessageBox.Show(e.Message);
                 }
             }
 
@@ -259,24 +294,31 @@ namespace WeatherApp
                     parameters.wspd = true;
                 };
 
-                var data = myweather.NDFDgen(lat, lng, WeatherWebReference.productType.timeseries,
-                                             DateTime.Now, DateTime.Now, unit, parameters);
-                
-                var xml = new XmlDocument();
-                xml.LoadXml(data);
-
-                if (data.ToString().Contains("Wind Speed"))
+                try
                 {
-                    foreach (XmlElement element in xml.GetElementsByTagName("value"))
+                    var data = myweather.NDFDgen(lat, lng, WeatherWebReference.productType.timeseries,
+                                             DateTime.Now, DateTime.Now, unit, parameters);
+
+                    var xml = new XmlDocument();
+                    xml.LoadXml(data);
+
+                    if (data.ToString().Contains("Wind Speed"))
                     {
-                        ListViewItem item = new ListViewItem("Szélerősség:");
-                        item.SubItems.Add(element.InnerText + " m/s");
-                        listView1.Items.Add(item);
+                        foreach (XmlElement element in xml.GetElementsByTagName("value"))
+                        {
+                            ListViewItem item = new ListViewItem("Szélerősség:");
+                            item.SubItems.Add(element.InnerText + " m/s");
+                            listView1.Items.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("A kiválasztott városhoz nem tartozik szélerősségre vonatkozó adat");
                     }
                 }
-                else
+                catch (Exception e)
                 {
-                    MessageBox.Show("A kiválasztott városhoz nem tartozik szélerősségre vonatkozó adat");
+                    MessageBox.Show(e.Message);
                 }
             }
         }
