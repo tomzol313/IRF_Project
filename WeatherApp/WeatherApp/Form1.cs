@@ -80,6 +80,7 @@ namespace WeatherApp
                 {
 
                     MessageBox.Show(e.Message);
+                    return;
                 }
             }
 
@@ -115,6 +116,7 @@ namespace WeatherApp
                 catch (Exception e)
                 {
                     MessageBox.Show(e.Message);
+                    return;
                 }
             }
 
@@ -150,6 +152,7 @@ namespace WeatherApp
                 catch (Exception e)
                 {
                     MessageBox.Show(e.Message);
+                    return;
                 }
             }
 
@@ -205,6 +208,7 @@ namespace WeatherApp
                 catch (Exception e)
                 {
                     MessageBox.Show(e.Message);
+                    return;
                 }
             }
 
@@ -241,6 +245,7 @@ namespace WeatherApp
                 catch (Exception e)
                 {
                     MessageBox.Show(e.Message);
+                    return;
                 }
             }
 
@@ -276,6 +281,7 @@ namespace WeatherApp
                 catch (Exception e)
                 {
                     MessageBox.Show(e.Message);
+                    return;
                 }
             }
 
@@ -311,6 +317,7 @@ namespace WeatherApp
                 catch (Exception e)
                 {
                     MessageBox.Show(e.Message);
+                    return;
                 }
             }
         }
