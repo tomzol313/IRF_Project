@@ -317,7 +317,7 @@ namespace WeatherApp
 
         private void GetCities()
         {
-            using (StreamReader sr = new StreamReader("cities.csv", Encoding.Default))
+            using (StreamReader sr = new StreamReader("Varosok/cities.csv", Encoding.Default))
             {
                 while (!sr.EndOfStream)
                 {
@@ -346,6 +346,8 @@ namespace WeatherApp
 
         private void FillCitiesSource()
         {
+            listBox1.SelectedIndex = -1;
+
             listBox1.DataSource = (from c in cities
                                    where c.varos.Contains(textBox1.Text)
                                    select c).ToList();
@@ -403,11 +405,20 @@ namespace WeatherApp
 
         private void button1_Click(object sender, EventArgs e)
         {
-            mainPanel.Controls.Clear();
-            listView1.Items.Clear();
-            GetDatas();
-            GetGraph();
-            button2.Visible = true;
+            if (listBox1.SelectedIndex == -1)
+            {
+                MessageBox.Show("Az adatok listázásához válassz egy várost a listából! \n" +
+                    "Előfordulhat, hogy a keresett város nincs benne a listában. \n" +
+                    "Kereséskor ügyelj a kis- és nagybetűkre!");
+            }
+            else
+            {
+                mainPanel.Controls.Clear();
+                listView1.Items.Clear();
+                GetDatas();
+                GetGraph();
+                button2.Visible = true;
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
