@@ -443,12 +443,10 @@ namespace WeatherApp
             {
                 City c = (City)listBox1.SelectedItem;
 
-                sw.Write(c.varos);
-                sw.Write(";");
-                sw.Write(DateTime.Now);
-                sw.WriteLine();
                 sw.Write("Megnevezés;");
                 sw.Write("Érték;");
+                sw.Write("(" + c.varos + ");");
+                sw.Write("(" + DateTime.Now + ");");
                 sw.WriteLine();
 
                 foreach (ListViewItem item in listView1.Items)
