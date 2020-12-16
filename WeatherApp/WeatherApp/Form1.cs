@@ -465,6 +465,7 @@ namespace WeatherApp
 
         private void Designer()
         {
+            this.Text = "Weather";
             this.Icon = new Icon("Images/icon.ico");
             this.BackColor = Color.FromArgb(193, 209, 219);
             this.ForeColor = Color.FromArgb(48, 71, 94);
